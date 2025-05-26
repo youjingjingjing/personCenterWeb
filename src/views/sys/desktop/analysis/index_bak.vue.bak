@@ -1,0 +1,44 @@
+<!-- <template>
+  <div class="vue-component">
+    <div class="md:flex vue-component">
+      <GrowCard class="enter-y" />
+      <SiteAnalysis class="!my-4 enter-y" />
+      <HumanModel class="md:w-2/5" />
+      <div class="md:w-3/5 ml-5">
+        <BasicInfo class="h-2/7 m-2" />
+        <HealthEvent class="h-3/7 m-2" />
+        <MedicalInsurance class="h-2/7 m-2" />
+      </div>
+
+      <div class="md:flex enter-y">
+        <VisitRadar class="md:w-1/3 w-full" />
+        <VisitSource class="md:w-1/3 !md:mx-4 !md:my-0 !my-4 w-full" />
+        <SalesProductPie class="md:w-1/3 w-full" />
+      </div>
+    </div>
+  </div>
+</template>
+<script lang="ts" setup name="Analysis">
+  import BasicInfo from './components/BasicInfo.vue';
+  import GrowCard from './components/GrowCard.vue';
+  import HealthEvent from './components/HealthEvent.vue';
+  import HumanModel from './components/HumanModel.vue.bak';
+  import MedicalInsurance from './components/MedicalInsurance.vue';
+  import SiteAnalysis from './components/SiteAnalysis.vue';
+  import VisitSource from './components/VisitSource.vue';
+  import VisitRadar from './components/VisitRadar.vue';
+  import SalesProductPie from './components/SalesProductPie.vue';
+</script>
+<style>
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+  .vue-component {
+    height: 100%;
+    background-color: white;
+    border-radius: 10px; /* 圆角半径 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 阴影样式 */
+  }
+</style> -->

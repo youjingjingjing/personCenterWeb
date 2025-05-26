@@ -1,0 +1,19 @@
+
+  {
+    "id": "1764923037965172736",
+    "user_code": "",
+    "patient_name": "张三",
+    "sex": "2",
+    "marital_status": "已婚",
+    "identification_number": "111111200011111111",
+    "birthday": "6/3/2024",
+    "age": 99,
+    "patient_phone": "18812341234",
+    "ethnic": "汉",
+    "origin": "110101",
+    "occupation": "农民",
+    "education": "初中",
+    "health_insurance": "新型农村合作医疗",
+    "residential_area": "130102",
+    "address": "111"
+  }

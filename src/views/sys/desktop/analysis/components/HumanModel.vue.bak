@@ -1,0 +1,206 @@
+<!-- <template>
+  <div class="background3">
+    <div class="module_title">模型展示</div>
+    <img src="/src/assets/images/human_body.png" class="text-center background-image" />
+    <div class="position1 rounded-box flex">
+      <div :class="heartTag"></div>
+      <div class="mr-2"
+        >心率:
+        {{
+          targetList.heart_rate == -1 || targetList.heart_rate == undefined
+            ? '---'
+            : targetList.heart_rate
+        }}
+        次/分</div
+      >
+    </div>
+    <div class="position2 rounded-box flex">
+      <div :class="breatheTag"></div>
+      <div class="mr-2"
+        >呼吸:
+        {{
+          targetList.breathe == -1 || targetList.breathe == undefined ? '---' : targetList.breathe
+        }}
+        次/分</div
+      >
+    </div>
+    <div class="position3 rounded-box flex">
+      <div :class="sysTag"></div>
+      <div class="mr-2"
+        >收缩压:
+        {{
+          targetList.systolic_pressure == -1 || targetList.systolic_pressure == undefined
+            ? '---'
+            : targetList.systolic_pressure
+        }}
+        mmHg</div
+      >
+    </div>
+    <div class="position4 rounded-box flex">
+      <div :class="diaTag"></div>
+      <div class="mr-2"
+        >舒张压:
+        {{
+          targetList.diastolic_pressure == -1 || targetList.diastolic_pressure == undefined
+            ? '---'
+            : targetList.diastolic_pressure
+        }}
+        mmHg</div
+      >
+    </div>
+    <div class="position5 rounded-box flex">
+      <div :class="bloodTag"></div>
+      <div class="mr-2"
+        >血糖:
+        {{
+          targetList.blood_sugar == -1 || targetList.blood_sugar == undefined
+            ? '---'
+            : targetList.blood_sugar
+        }}
+        mmol/L</div
+      >
+    </div>
+  </div>
+</template>
+<script lang="ts" setup>
+  import { targetList } from './human_model_utils';
+
+  let heartTag = 'gray-square';
+  let breatheTag = 'gray-square';
+  let sysTag = 'gray-square';
+  let diaTag = 'gray-square';
+  let bloodTag = 'gray-square';
+
+  function refreshTags() {
+    // 血糖
+    if (targetList.blood_sugar <= 6 && targetList.blood_sugar >= 3.9) {
+      bloodTag = 'green-square';
+    } else if (targetList.blood_sugar == -1 || targetList.blood_sugar == undefined) {
+      bloodTag = 'gray-square';
+    } else {
+      bloodTag = 'red-square';
+    }
+    // 心率
+    if (targetList.heart_rate <= 100 && targetList.heart_rate >= 60) {
+      heartTag = 'green-square';
+    } else if (targetList.heart_rate == -1 || targetList.heart_rate == undefined) {
+      heartTag = 'gray-square';
+    } else {
+      heartTag = 'red-square';
+    }
+    // 呼吸
+    if (targetList.breathe <= 20 && targetList.breathe >= 12) {
+      breatheTag = 'green-square';
+    } else if (targetList.breathe == -1 || targetList.breathe == undefined) {
+      breatheTag = 'gray-square';
+    } else {
+      breatheTag = 'red-square';
+    }
+    // 收缩压
+    if (targetList.systolic_pressure <= 140 && targetList.systolic_pressure >= 0) {
+      sysTag = 'green-square';
+    } else if (targetList.systolic_pressure == -1 || targetList.systolic_pressure == undefined) {
+      sysTag = 'gray-square';
+    } else {
+      sysTag = 'red-square';
+    }
+    // 舒张压
+    if (targetList.diastolic_pressure <= 90 && targetList.diastolic_pressure >= 0) {
+      diaTag = 'green-square';
+    } else if (targetList.diastolic_pressure == -1 || targetList.diastolic_pressure == undefined) {
+      diaTag = 'gray-square';
+    } else {
+      diaTag = 'red-square';
+    }
+  }
+  refreshTags();
+</script>
+<style>
+  .background3 {
+    /* height: 100vh; */
+    height: 100%;
+    /* background-color: #b7d8f9; */
+    background-color: #eaf9ff;
+    border-radius: 10px; /* 圆角半径 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 阴影样式 */
+  }
+
+  .background-image {
+    z-index: -1;
+  }
+
+  .gray-square {
+    margin-top: 2px;
+    margin-left: 1px;
+    margin-right: 2px;
+    width: 18px;
+    height: 18px;
+    background-color: grey;
+    border: 2px solid rgb(0, 0, 0);
+  }
+
+  .green-square {
+    margin-top: 2px;
+    margin-left: 1px;
+    margin-right: 2px;
+    width: 18px;
+    height: 18px;
+    background-color: rgb(29, 177, 29);
+    border: 2px solid rgb(0, 0, 0);
+  }
+
+  .red-square {
+    margin-top: 2px;
+    margin-left: 1px;
+    margin-right: 2px;
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    border: 2px solid rgb(0, 0, 0);
+  }
+
+  /* 心率 */
+  .position1 {
+    position: absolute;
+    top: 230px;
+    left: 450px;
+    background-color: white;
+  }
+
+  /* 呼吸 */
+  .position2 {
+    position: absolute;
+    top: 100px;
+    left: 400px;
+    background-color: white;
+  }
+
+  /* 收缩压 */
+  .position3 {
+    position: absolute;
+    top: 200px;
+    left: 70px;
+    background-color: white;
+  }
+
+  /* 舒张压 */
+  .position4 {
+    position: absolute;
+    top: 240px;
+    left: 70px;
+    background-color: white;
+  }
+
+  /* 血糖 */
+  .position5 {
+    position: absolute;
+    top: 600px;
+    left: 70px;
+    background-color: white;
+  }
+
+  .rounded-box {
+    border: 2px solid black;
+    border-radius: 5px; /* 圆角边框的半径 */
+  }
+</style> -->
