@@ -25,6 +25,7 @@
       </a-button>
     </template>
 
+    <!-- 这里加 a-spin 包裹内容 -->
     <div class="upload-modal-toolbar">
       <Alert :message="getHelpText" type="info" banner class="upload-modal-toolbar__text" />
       <Upload
@@ -43,7 +44,9 @@
   </BasicModal>
 </template>
 <script lang="ts">
+  // import { defineComponent, ref, toRefs, unref, computed } from 'vue';
   import { defineComponent, ref, toRefs, unref, computed } from 'vue';
+  import { isRef } from 'vue';
   import { Upload, Alert } from 'ant-design-vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   // import { BasicTable, useTable } from '/@/components/Table';
@@ -62,14 +65,23 @@
 
   export default defineComponent({
     components: { BasicModal, Upload, Alert, FileList },
-    props: uploadProps,
+    // props: uploadProps,
+    props: {
+      ...uploadProps,
+      aiLoading: {
+        type: [Boolean, Object], // 推荐加 Object 支持ref
+        default: false,
+      },
+    },
     emits: ['change', 'register', 'delete'],
     setup(props, { emit }) {
+      // const spinLoading = computed(() => (isRef(props.aiLoading) ? props.aiLoading.value : props.aiLoading));
       const { uploadType, accept, helpText, maxNumber, maxSize } = toRefs(props);
       const { t } = useI18n();
       const [register, { closeModal }] = useModalInner();
       const fileItemList = ref<FileItem[]>([]);
       const uploading = ref(false);
+      const spinLoading = ref(true);
 
       const { getStringAccept, getHelpText } = useUploadType({
         uploadTypeRef: uploadType,
@@ -109,13 +121,23 @@
       });
 
       // 上传前校验
-      function beforeUpload(file: File) {
+      async function beforeUpload(file: File) {
         const { size, name } = file;
         const { maxSize, bizKey, bizType, uploadType } = props;
         // 设置最大值，则判断
         if (maxSize && file.size / 1024 / 1024 >= maxSize) {
           createMessage.error(t('component.upload.maxSizeMultiple', [maxSize]));
           return false;
+        }
+        if (
+          props.uploadParams?.customBeforeUpload &&
+          typeof props.uploadParams.customBeforeUpload === 'function'
+        ) {
+          const result = await props.uploadParams.customBeforeUpload(file);
+          console.log('beforeUpload result:', result);
+          if (result === false) {
+            return false;
+          }
         }
         const commonItem = {
           id: buildUUID(),
@@ -148,7 +170,7 @@
 
       function addFileItem(record: FileItem) {
         const { maxNumber } = props;
-        if ((fileItemList.value.length + (props.previewFileList?.length || 0)) >= maxNumber) {
+        if (fileItemList.value.length + (props.previewFileList?.length || 0) >= maxNumber) {
           createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
           return;
         }
@@ -185,7 +207,7 @@
                 fileEntityId: item.fileEntityId,
                 imageMaxWidth: props.imageMaxWidth || '',
                 imageMaxHeight: props.imageMaxHeight || '',
-                ...(props.uploadParams || {}),
+                // ...(props.uploadParams || {}),
                 file: item.file,
               },
               (progressEvent: ProgressEvent) => {
@@ -290,6 +312,7 @@
         getIsSelectFile,
         getUploadBtnText,
         t,
+        spinLoading,
       };
     },
   });

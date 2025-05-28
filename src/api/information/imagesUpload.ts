@@ -22,13 +22,20 @@ export const imagesUploadList = (params?: ImagesUpload | any) =>
   defHttp.get<ImagesUpload>({ url: adminPath + '/information/imagesUpload/list', params });
 
 export const imagesUploadListData = (params?: ImagesUpload | any) =>
-  defHttp.post<Page<ImagesUpload>>({ url: adminPath + '/information/imagesUpload/listData', params });
+  defHttp.post<Page<ImagesUpload>>({
+    url: adminPath + '/information/imagesUpload/listData',
+    params,
+  });
 
 export const imagesUploadForm = (params?: ImagesUpload | any) =>
   defHttp.get<ImagesUpload>({ url: adminPath + '/information/imagesUpload/form', params });
 
 export const imagesUploadSave = (params?: any, data?: ImagesUpload | any) =>
-  defHttp.postJson<ImagesUpload>({ url: adminPath + '/information/imagesUpload/save', params, data });
+  defHttp.postJson<ImagesUpload>({
+    url: adminPath + '/information/imagesUpload/save',
+    params,
+    data,
+  });
 
 export const imagesUploadDelete = (params?: ImagesUpload | any) =>
   defHttp.get<ImagesUpload>({ url: adminPath + '/information/imagesUpload/delete', params });
